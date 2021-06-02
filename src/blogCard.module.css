@@ -1,5 +1,4 @@
- 
-.cardPadding{
+ .cardPadding{
     padding: 5px;
     margin: 16px;
     border-radius : 5px;
@@ -7,6 +6,15 @@
     width: 45%;
     display: inline-block;
 }
+
+.cardPadding > button{
+    font-size: 18px;
+}
+.likeCount{
+    font-weight: 600;
+    font-size: 20px;
+}
+
 @media(max-width: 992PX) {
     html{
         background: #252424;

@@ -5,50 +5,65 @@
 
 class App extends Component{ 
   state = {
-    showBlogs : true
+    showBlogs : true,
+    BlogObjArr : [
+      {
+        id: 1,
+       title : 'Blog Title 1',
+       description : 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor',
+       likeCount : 0
+     },
+      {
+       id: 2,
+       title : 'Blog Title 2',
+       description : 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor',
+       likeCount : 0
+      },
+      {
+       id: 3,
+       title : 'Blog Title 3',
+       description : 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor',
+       likeCount : 0
+      },
+      {
+       id: 4,
+       title : 'Blog Title 4',
+       description : 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor',
+       likeCount : 0
+      }]
   }
-
-    BlogObjArr =[
-   {
-     id: 1,
-    title : 'Blog Title 1',
-    description : 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor'
-   },
-   {
-    id: 2,
-    title : 'Blog Title 2',
-    description : 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor'
-   },
-   {
-    id: 3,
-    title : 'Blog Title 3',
-    description : 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor'
-   },
-   {
-    id: 4,
-    title : 'Blog Title 4',
-    description : 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor'
-   }]
 
    
 
-   blogCards = isMyArrayEmpty(this.BlogObjArr) ? [] : this.BlogObjArr.map((item ,pos) => { 
+   onLikeBtnClick = (pos) =>{
+     const updatedBlogList = this.state.BlogObjArr;
+     const updatedBlogObj = updatedBlogList[pos];
+     updatedBlogObj.likeCount = updatedBlogObj.likeCount+1;
+     updatedBlogList[pos] = updatedBlogObj;
+     this.setState({BlogObjArr : updatedBlogList})
+  }
+
+   blogCards = isMyArrayEmpty(this.state.BlogObjArr) ? [] : this.state.BlogObjArr.map((item ,pos) => { 
        return(
-        <BlogCard key={pos} title={item.title} description={item.description} id={item.id} />
+        <BlogCard key={pos} title={item.title} description={item.description} likeCount={item.likeCount} id={item.id} onLikeBtnClick={()=>this.onLikeBtnClick(pos)} />
       )
   });
     onHideBtnClick = () =>{
-      this.setState({showBlogs : false});
-      console.log(this.showBlogs);
+       this.setState((prevState , prevProps) =>{
+        return{
+          showBlogs : !prevState.showBlogs
+        }
+      });
+      console.log(this.state.showBlogs);
    }
-
+ 
    render(){
-     return(
+      return(
       <div className="App">
-      <button onClick = {this.onHideBtnClick}>Hide Lists </button>
+      <button onClick = {this.onHideBtnClick}>{this.state.showBlogs ? 'Hide All' : 'Show All'}</button>
       <br></br>
       {
-        this.state.showBlogs ? this.blogCards : " "
+        this.state.showBlogs ? this.blogCards : null
       }
     </div>
      );
