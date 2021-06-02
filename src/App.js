@@ -24,13 +24,8 @@ function App() {
    }];
 
   const blogCards = BlogObjArr.map((item ,pos) => { 
-      console.log(item);
-      return(
-        <BlogCard key={pos} />
-      //   <div className="cardPadding" style={CardStyleObject} key={item.id}>
-      //   <h3>{item.title}</h3>
-      //   <p>{item.description}</p>
-      // </div> 
+       return(
+        <BlogCard key={pos} title={item.title} description={item.description} id={item.id} />
       )
   });
    
